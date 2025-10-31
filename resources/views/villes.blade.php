@@ -63,7 +63,8 @@
   </style>
 </head>
 <body>
-  <h1>Recherche - Villes de France</h1>
+  <h1>🫶 Recherche - Villes de France</h1>
+
 
   <form id="form">
     <select id="type">

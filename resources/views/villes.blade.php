@@ -53,7 +53,6 @@
     .ville h3 { margin: 0 0 8px; color: var(--blue); }
     .ville p { margin: 2px 0; color: #374151; }
 
-    /* suggestions */
     #suggestBox div {
       padding: 6px 10px;
       cursor: pointer;
@@ -64,7 +63,7 @@
   </style>
 </head>
 <body>
-  <h1>🔎 Recherche - Villes de France</h1>
+  <h1>Recherche - Villes de France</h1>
 
   <form id="form">
     <select id="type">
@@ -90,20 +89,19 @@
     const resultats = document.getElementById('resultats');
     const suggestBox = document.getElementById('suggestBox');
 
-    // ---- Requête principale ----
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const val = q.value.trim();
       if (!val) return;
 
-      resultats.innerHTML = "<p>⏳ Chargement...</p>";
+      resultats.innerHTML = "<p>Chargement...</p>";
 
       try {
         const res = await fetch(`/villes_de_france/${type.value}/${encodeURIComponent(val)}`);
         const data = await res.json();
 
         if (!data.length) {
-          resultats.innerHTML = "<p>Aucun résultat trouvé 😢</p>";
+          resultats.innerHTML = "<p>Aucun résultat trouvé</p>";
           return;
         }
 
@@ -117,11 +115,10 @@
           </div>
         `).join('');
       } catch (err) {
-        resultats.innerHTML = "<p>❌ Erreur lors du chargement</p>";
+        resultats.innerHTML = "<p>Erreur lors du chargement</p>";
       }
     });
 
-    // ---- Autocomplétion ----
     let lastTerm = "";
     q.addEventListener('input', async () => {
       const term = q.value.trim();
@@ -148,7 +145,6 @@
       }
     });
 
-    // clic sur une suggestion
     suggestBox.addEventListener('click', e => {
       if (e.target.tagName === 'DIV') {
         q.value = e.target.textContent;
@@ -156,7 +152,6 @@
       }
     });
 
-    // cacher suggestions si clic ailleurs
     document.addEventListener('click', e => {
       if (!suggestBox.contains(e.target) && e.target !== q) {
         suggestBox.style.display = 'none';
